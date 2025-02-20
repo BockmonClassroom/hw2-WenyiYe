@@ -84,3 +84,23 @@ plt.xlabel("Leaf Width (cm)", fontsize=12)
 plt.ylabel("Leaf Length (cm)", fontsize=12)
 plt.legend(fontsize=10, title="Plant Type")
 plt.show()
+
+data_combined = df.copy()
+data_combined["Plant Name"] = "All Plants"
+
+# Combine original data with the new "All Plants" categorys
+data_with_combined = pd.concat([df, data_combined], ignore_index=True)
+
+# Create boxplots for leaf width and length with the "All Plants" category
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+sns.boxplot(ax=axes[0], x="Plant Name", y="Leaf Width (cm)", data=data_with_combined)
+axes[0].set_title("Boxplot of Leaf Width by Plant Type (Including All Plants)")
+axes[0].set_xticklabels(axes[0].get_xticklabels(), rotation=45, ha="right")
+
+sns.boxplot(ax=axes[1], x="Plant Name", y="Leaf Length (cm)", data=data_with_combined)
+axes[1].set_title("Boxplot of Leaf Length by Plant Type (Including All Plants)")
+axes[1].set_xticklabels(axes[1].get_xticklabels(), rotation=45, ha="right")
+
+plt.tight_layout()
+plt.show()
